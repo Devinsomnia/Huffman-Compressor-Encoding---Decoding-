@@ -15,11 +15,26 @@
 using namespace std;
 
 int main() {
-    string line;
     int menu;
-    ifstream f("test.txt");
-    getline(f, line);
-    HuffmanTree* ht = new HuffmanTree(line);
+    // ifstream f("test.txt");
+    // getline(f, line);
+
+    char * buffer;
+    int fsize = 0;
+    ifstream f("test.txt", ios_base::binary);
+    f.seekg(0, ios::end);
+    fsize = f.tellg();
+    f.seekg(0, ios::beg);
+    buffer = new char [fsize];
+    f.read(buffer,fsize);
+
+    //cout << fsize << endl;
+    //cout << buffer << endl;
+
+    f.close();
+
+
+    HuffmanTree* ht = new HuffmanTree(buffer);
 
     ht->buildTable();
     ht->buildHeap();
